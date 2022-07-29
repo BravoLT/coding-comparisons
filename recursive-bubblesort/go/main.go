@@ -30,6 +30,11 @@ func bubbleSort(arr []string, size int) []string {
 	return arr
 }
 
+func timedBubbleSort(arr []string, size int) []string {
+	defer timer("Bubble Sort")()
+	return bubbleSort(arr, size)
+}
+
 func readFromFileByLine(path string, mode int) ([]string, error) {
 	var result []string
 	file, err := os.Open(path)
@@ -74,6 +79,15 @@ func writeToFile(words []string, mode int) {
 	ioutil.WriteFile(filename, []byte(str), 0644)
 }
 
+func timer(name string) func() {
+	start := time.Now()
+	return func() {
+		end := float64(time.Since(start).Nanoseconds()) / 1000.0
+
+		fmt.Printf("%s took %v microseconds\n\n", name, end)
+	}
+}
+
 func main() {
 	fp := flag.String("fp", "", "")
 	mode := flag.Int("mode", 0, "")
@@ -87,6 +101,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	sorted := bubbleSort(text, len(text))
+	sorted := timedBubbleSort(text, len(text))
 	writeToFile(sorted, *mode)
 }
