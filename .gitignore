@@ -1,5 +1,3 @@
 
-/recursive-bubblesort/go/.idea
-/recursive-bubblesort/go/rbsGo
-/fizzbuzz/go/.idea
-/fizzbuzz/go/goFizzBuzz
+.idea/
+
